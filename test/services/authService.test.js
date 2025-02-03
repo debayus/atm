@@ -9,7 +9,10 @@ const sampleUsers = [
 
 describe('Auth Service', function() {
 
-    sampleUsers.forEach(user => users.push(user));
+    beforeEach(() => {
+        users.length = 0;
+        sampleUsers.forEach(user => users.push(user));
+    });
 
     it('Should retrieve a user by name', function() {
         const user = getUserByName('Alice');

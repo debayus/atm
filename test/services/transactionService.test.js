@@ -8,8 +8,13 @@ import {
     withdraw
 } from "../../src/services/transactionService.js";
 import {login, logout} from "../../src/services/authService.js";
+import {users} from "../../src/data.js";
 
 describe('Transaction Service', function() {
+
+    beforeEach(() => {
+        users.length = 0;
+    });
 
     it('Should retrieve the user’s balance using getBalance', function() {
         login('Elon');
