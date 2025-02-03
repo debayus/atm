@@ -99,20 +99,18 @@ function transfer(targetName, amount) {
   if (owed > 0) {
     user.owe(userTarget.uuid, owed);
   }
-  user.withdraw(transferAmount);
 
   // If the user has a debt to the target, then the debt will be paid first
   const debt = userTarget.getDebtByUuid(user.uuid);
   if (debt) {
     const debtAmount = debt.amount > transferAmount ? transferAmount : debt.amount;
     debt.reduce(debtAmount);
-    const debtUser = getUserByUuid(debt.targetUuid);
-    debtUser.deposit(debtAmount);
     transferAmount -= debtAmount;
   }
 
   // If there is still a remains, it will be deposited
   if (transferAmount > 0) {
+    user.withdraw(transferAmount);
     userTarget.deposit(transferAmount);
   }
 
